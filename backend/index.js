@@ -21,24 +21,27 @@ const PORT = process.env.PORT || 7001;
 
 //~ declare routes --> app.http_method('endpoint' , callback)
 app.get("/", (req, res) => {
-  //   res.send("req is sending");
-
-  app.get("/about", (req, res) => {
-    res.status(200).json({
-      message: "About page",
-    });
-  });
-
-  res.status(500).json({
+  res.status(200).json({
     success: true,
-    message: "Okay",
+    message: "API is running successfully",
     data: { userName: "NIGHT CODER" },
   });
 });
 
-//~ 3. assign a port number to aur server
-app.listen(PORT, (err) => {
-  if (err) console.log(err);
-  console.log("Server Started.....");
-  connectDB();
+app.get("/about", (req, res) => {
+  res.status(200).json({
+    message: "About page",
+  });
 });
+
+//~ 3. assign a port number to aur server
+connectDB();
+
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, (err) => {
+    if (err) console.log(err);
+    console.log("Server Started.....");
+  });
+}
+
+export default app;
