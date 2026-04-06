@@ -11,7 +11,11 @@ dotenv.config();
 //! call/invoke the function
 
 let app = express();
-app.use(cors());
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/api/auth", userRoutes);
@@ -38,9 +42,9 @@ app.get("/about", (req, res) => {
 connectDB();
 
 if (process.env.NODE_ENV !== "production") {
-  app.listen(PORT, (err) => {
+  app.listen(PORT, "0.0.0.0", (err) => {
     if (err) console.log(err);
-    console.log("Server Started.....");
+    console.log(`Server Started on port ${PORT}.....`);
   });
 }
 

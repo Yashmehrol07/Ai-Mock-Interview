@@ -13,6 +13,7 @@ const generateToken = (userId) => {
 // @route   POST /api/auth/register
 // @access  Public
 export const registerUser = async (req, res) => {
+  console.log("Signup request received:", req.body);
   try {
     const { name, email, password } = req.body;
 
